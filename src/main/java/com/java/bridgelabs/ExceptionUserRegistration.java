@@ -55,11 +55,30 @@ public class ExceptionUserRegistration
         }
         return lastName(lastName);
     }
+    // validating email
+    public boolean email(String str) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z-9]+([._+-]*[0-9A-Za-z]+)*@[a-zA-Z0-9]+.[a-zA-Z]{2,4}([.][a-z]{2,4})?$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 
+    public boolean testEmailId(String emailId) throws InputInvalidException {
+        try {
+            if (!email(emailId)) {
+                throw new InputInvalidException("Entered EmailId is Invalid");
+            } else {
+                System.out.println("Entered EmailId is Valid");
+            }
+        } catch (InputInvalidException e) {
+            System.out.println("Exception is Occurred" + e);
+        }
+        return email(emailId);
+    }
     public static void main(String[] args) throws InputInvalidException {
       ExceptionUserRegistration exceptionUserRegistration = new ExceptionUserRegistration();
       exceptionUserRegistration.testFirstName("Prajakta");
-
+      exceptionUserRegistration.testLastName("Nikam");
+      exceptionUserRegistration.testEmailId("prajuN210@gmail.com");
     }
 }
 
