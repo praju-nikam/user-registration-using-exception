@@ -95,12 +95,37 @@ public class ExceptionUserRegistration
         }
         return phoneNumber(mobileNumber);
     }
+
+    //validating password
+    public boolean password(String str) {
+        Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])([a-zA-Z0-9@$!%*#?&]){8,}$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
+    public boolean testPassword(String password) throws InputInvalidException {
+        try {
+            if (!password(password)) {
+                throw new InputInvalidException("Entered Password is Invalid\n" +
+                        "Password Must Contain at least\n" +
+                        "one Uppercase, one Numeric, one Special Char\n" +
+                        "and minimum 8 Characters ");
+            } else {
+                System.out.println("Entered Password is Valid");
+            }
+        } catch (InputInvalidException e) {
+            System.out.println("Exception is Occurred" + e);
+        }
+        return password(password);
+    }
+
     public static void main(String[] args) throws InputInvalidException {
       ExceptionUserRegistration exceptionUserRegistration = new ExceptionUserRegistration();
       exceptionUserRegistration.testFirstName("Prajakta");
       exceptionUserRegistration.testLastName("Nikam");
       exceptionUserRegistration.testEmailId("prajuN210@gmail.com");
       exceptionUserRegistration.testMobileNumber("9960224670");
+      exceptionUserRegistration.testPassword("Praju@12345");
     }
 }
 
