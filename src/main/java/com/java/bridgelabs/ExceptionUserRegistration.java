@@ -74,11 +74,33 @@ public class ExceptionUserRegistration
         }
         return email(emailId);
     }
+
+    //validating phone number
+    public boolean phoneNumber(String str) {
+        Pattern pattern = Pattern.compile("^(\\+?\\d{2}?\\s{1})?(\\d{10})$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
+    public boolean testMobileNumber(String mobileNumber) throws InputInvalidException {
+        try {
+            if (!phoneNumber(mobileNumber)) {
+                throw new InputInvalidException("Entered MobileNumber is Invalid\n" +
+                        "Mobile Number Must Contain Country Code");
+            } else {
+                System.out.println("Entered MobileNumber is Valid\n");
+            }
+        } catch (InputInvalidException e) {
+            System.out.println("Exception is Occurred" + e);
+        }
+        return phoneNumber(mobileNumber);
+    }
     public static void main(String[] args) throws InputInvalidException {
       ExceptionUserRegistration exceptionUserRegistration = new ExceptionUserRegistration();
       exceptionUserRegistration.testFirstName("Prajakta");
       exceptionUserRegistration.testLastName("Nikam");
       exceptionUserRegistration.testEmailId("prajuN210@gmail.com");
+      exceptionUserRegistration.testMobileNumber("9960224670");
     }
 }
 
