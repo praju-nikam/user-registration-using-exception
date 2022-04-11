@@ -34,6 +34,28 @@ public class ExceptionUserRegistration
         return firstName(firstName);
     }
 
+    // validating last name
+    public boolean lastName (String str){
+        Pattern pattern = Pattern.compile("^[A-Z]{1}[a-z]{2,}$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
+    public boolean testLastName(String lastName) throws InputInvalidException {
+        try {
+            if (!lastName(lastName)) {
+                throw new InputInvalidException("Entered LastName is Invalid\n" +
+                        "Last name starts with Capital Letter and has\n" +
+                        "minimum 3 characters");
+            } else {
+                System.out.println("Entered LastName is Valid");
+            }
+        } catch (InputInvalidException e) {
+            System.out.println("Exception is Occurred" + e);
+        }
+        return lastName(lastName);
+    }
+
     public static void main(String[] args) throws InputInvalidException {
       ExceptionUserRegistration exceptionUserRegistration = new ExceptionUserRegistration();
       exceptionUserRegistration.testFirstName("Prajakta");
